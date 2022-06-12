@@ -81,3 +81,17 @@ func max(a, b int) int {
 	}
 	return b
 }
+
+func maxSubArray20220612(nums []int) int {
+	n := len(nums)
+	if n == 1 {
+		return nums[0]
+	}
+	curMax := nums[0]
+	result := curMax
+	for i := 1; i < n; i++ {
+		curMax = max(curMax+nums[i], nums[i])
+		result = max(curMax, result)
+	}
+	return result
+}

@@ -17,3 +17,14 @@ func containsDuplicate(nums []int) bool {
 	}
 	return false
 }
+
+func containsDuplicate20220612(nums []int) bool {
+	cache := make(map[int]bool)
+	for _, num := range nums {
+		if exist := cache[num]; exist {
+			return true
+		}
+		cache[num] = true
+	}
+	return false
+}
