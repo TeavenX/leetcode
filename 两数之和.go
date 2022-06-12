@@ -6,7 +6,7 @@ func main() {
 	nums := []int{3, 2, 4}
 	nums = []int{3, 3}
 	target := 6
-	fmt.Println(twoSum(nums, target))
+	fmt.Println(twoSum20220613(nums, target))
 }
 
 func twoSum(nums []int, target int) []int {
@@ -27,6 +27,20 @@ func twoSum20220504(nums []int, target int) []int {
 			return []int{idx, idx0}
 		}
 		cache[num] = idx0
+	}
+	return []int{}
+}
+
+func twoSum20220613(nums []int, target int) []int {
+	if len(nums) == 2 {
+		return []int{0, 1}
+	}
+	cache := make(map[int]int)
+	for i, num := range nums {
+		if idx, exist := cache[target-num]; exist && idx != i {
+			return []int{i, idx}
+		}
+		cache[num] = i
 	}
 	return []int{}
 }

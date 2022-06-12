@@ -31,3 +31,26 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 		nums1[j+i] = nums2[i]
 	}
 }
+
+func merge(nums1 []int, m int, nums2 []int, n int) {
+	if n == 0 {
+		return
+	}
+	if m == 0 {
+		copy(nums1, nums2)
+	}
+	p1, p2 := m-1, n-1
+	for p2 >= 0 && p1 >= 0 {
+		if nums2[p2] >= nums1[p1] {
+			nums1[p2+p1+1] = nums2[p2]
+			p2--
+		} else {
+			nums1[p2+p1+1] = nums1[p1]
+			p1--
+		}
+	}
+	for p2 >= 0 {
+		nums1[p2] = nums2[p2]
+		p2--
+	}
+}
