@@ -24,3 +24,24 @@ func isHappy(n int) bool {
 	}
 	return true
 }
+
+func isHappy(n int) bool {
+	cache := make(map[int]bool)
+	for n > 1 {
+		m := 0
+		for n > 0 {
+			num := n % 10
+			n /= 10
+			m += num * num
+		}
+		if m == 1 {
+			return true
+		}
+		if exist := cache[m]; exist {
+			return false
+		}
+		n = m
+		cache[m] = true
+	}
+	return true
+}

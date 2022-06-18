@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"reflect"
 	"regexp"
-	"sort"
 )
 
 const (
@@ -114,7 +113,8 @@ func main() {
 	//a := int(12345) % (1e9 + 7)
 	//fmt.Println(a)
 
-	sort.Search()
+	//sort.Search()
+	fmt.Println('9' - '0')
 }
 
 func FindPhoneNumber(filename string) []byte {
