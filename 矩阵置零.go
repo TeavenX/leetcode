@@ -9,7 +9,7 @@ func main() {
 	fmt.Println(matrix)
 }
 
-func setZeroes(matrix [][]int) {
+func setZeroesUnder63(matrix [][]int) {
 	n := len(matrix)
 	m := len(matrix[0])
 	r, c := 0, 0
@@ -36,5 +36,48 @@ func setZeroes(matrix [][]int) {
 			}
 		}
 		c >>= 1
+	}
+}
+
+func setZeroes(matrix [][]int) {
+	n := len(matrix)
+	m := len(matrix[0])
+	r0, c0 := false, false
+	for i := 0; i < n; i++ {
+		if matrix[i][0] == 0 {
+			c0 = true
+			break
+		}
+	}
+	for i := 0; i < m; i++ {
+		if matrix[0][i] == 0 {
+			r0 = true
+			break
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			if matrix[i][j] == 0 {
+				matrix[i][0] = 0
+				matrix[0][j] = 0
+			}
+		}
+	}
+	for i := 1; i < n; i++ {
+		for j := 1; j < m; j++ {
+			if matrix[i][0] == 0 || matrix[0][j] == 0 {
+				matrix[i][j] = 0
+			}
+		}
+	}
+	if r0 {
+		for i := 0; i < m; i++ {
+			matrix[0][i] = 0
+		}
+	}
+	if c0 {
+		for i := 0; i < n; i++ {
+			matrix[i][0] = 0
+		}
 	}
 }
