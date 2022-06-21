@@ -114,7 +114,20 @@ func main() {
 	//fmt.Println(a)
 
 	//sort.Search()
-	fmt.Println('9' - '0')
+
+	//fmt.Println('9' - '0')
+
+	arr := []int{1, 2, 3, 4, 5, 6}
+	for i, n := range arr {
+		fmt.Println(i, n)
+		if i == 3 {
+			arr = arr[:3]
+		}
+		if i == 4 {
+			arr = append(arr, arr...)
+		}
+		fmt.Println(arr)
+	}
 }
 
 func FindPhoneNumber(filename string) []byte {
