@@ -128,6 +128,8 @@ func main() {
 		}
 		fmt.Println(arr)
 	}
+	b := arr[3:]
+	fmt.Println("b:", len(b), cap(b))
 }
 
 func FindPhoneNumber(filename string) []byte {
