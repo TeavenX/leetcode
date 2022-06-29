@@ -58,3 +58,25 @@ func middleNodeDoublePtr(head *ListNode) *ListNode {
 	}
 	return slow
 }
+
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func middleNode20220629(head *ListNode) *ListNode {
+	if head.Next == nil {
+		return head
+	}
+	slow, fast := head, head
+	for fast.Next != nil {
+		slow = slow.Next
+		fast = fast.Next
+		if fast.Next != nil {
+			fast = fast.Next
+		}
+	}
+	return slow
+}
