@@ -29,3 +29,29 @@ func walk(grid *[][]byte, i, j, n, m int) {
 		}
 	}
 }
+
+func numIslands(grid [][]byte) int {
+	n, m := len(grid), len(grid[0])
+	count := 0
+	var dfs func(i, j int)
+	dfs = func(i, j int) {
+		if i < 0 || j < 0 || i >= n || j >= m {
+			return
+		}
+		if grid[i][j] == '1' {
+			grid[i][j] = '0'
+			for _, step := range steps {
+				dfs(i+step[0], j+step[1])
+			}
+		}
+	}
+	for i := 0; i < n; i++ {
+		for j := 0; j < m; j++ {
+			if grid[i][j] == '1' {
+				count++
+				dfs(i, j)
+			}
+		}
+	}
+	return count
+}

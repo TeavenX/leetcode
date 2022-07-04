@@ -40,3 +40,16 @@ func fib20220504(n int) int {
 	}
 	return r
 }
+
+func fib20220705(n int) int {
+	if n < 2 {
+		return n
+	}
+	p, q, r := 0, 1, 0
+	for i := 1; i < n; i++ {
+		r = p + q
+		p = q
+		q = r
+	}
+	return r
+}

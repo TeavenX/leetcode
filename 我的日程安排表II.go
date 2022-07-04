@@ -1,7 +1,17 @@
 package main
 
-func main() {
+import "fmt"
 
+func main() {
+	c := Constructor()
+	fmt.Println(c.Book(10, 20))
+	fmt.Println(c)
+	fmt.Println(c.Book(30, 35))
+	fmt.Println(c)
+	fmt.Println(c.Book(20, 35))
+	fmt.Println(c)
+	fmt.Println(c.Book(35, 50))
+	fmt.Println(c)
 }
 
 type pair struct {
