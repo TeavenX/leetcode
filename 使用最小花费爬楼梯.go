@@ -9,13 +9,13 @@ func main() {
 
 func minCostClimbingStairs(cost []int) int {
 	n := len(cost)
-	cache := make([]int, n)
-	cache[1] = min(cost[0], cost[1])
+	dp := make([]int, n)
+	dp[0] = cost[0]
+	dp[1] = cost[1]
 	for i := 2; i < n; i++ {
-		cache[i] = min(cache[i-1]+cost[i], cache[i-2]+cache[i-1])
+		dp[i] = min(dp[i-1], dp[i-2]) + cost[i]
 	}
-	fmt.Println(cache)
-	return cache[n-1]
+	return min(dp[n-1], dp[n-2])
 }
 
 func min(a, b int) int {

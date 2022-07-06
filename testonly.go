@@ -5,13 +5,28 @@ import (
 	"io/ioutil"
 	"reflect"
 	"regexp"
-	"strconv"
 )
 
 const (
 	NOCOVER = iota
 	SETCAMERA
 	COVERED
+	NEWENUM = iota
+	NUM2
+	NUM3
+)
+
+const (
+	INDEPENDENCE = iota
+	IDPNUM
+	IDPNUM2
+)
+
+type token int
+
+const (
+	_ token = iota
+	_EOF
 )
 
 func main() {
@@ -132,15 +147,27 @@ func main() {
 	//b := arr[3:]
 	//fmt.Println("b:", len(b), cap(b))
 
-	for i := 'a'; i < 'z'; i++ {
-		fmt.Println(strconv.Itoa(int(i)))
-	}
-	for i := 'A'; i < 'Z'; i++ {
-		fmt.Println(strconv.Itoa(int(i)))
-	}
-	for i := '0'; i < '9'; i++ {
-		fmt.Println(strconv.Itoa(int(i)))
-	}
+	//for i := 'a'; i < 'z'; i++ {
+	//    fmt.Println(strconv.Itoa(int(i)))
+	//}
+	//for i := 'A'; i < 'Z'; i++ {
+	//    fmt.Println(strconv.Itoa(int(i)))
+	//}
+	//for i := '0'; i < '9'; i++ {
+	//    fmt.Println(strconv.Itoa(int(i)))
+	//}
+
+	//fmt.Println(COVERED)
+	//
+	//fmt.Println(NEWENUM)
+	//fmt.Println(NUM2)
+	//fmt.Println(NUM3)
+	//
+	//fmt.Println(INDEPENDENCE)
+	//fmt.Println(IDPNUM)
+	//fmt.Println(IDPNUM2)
+
+	fmt.Printf("%T, %+v", _EOF, _EOF)
 }
 
 func FindPhoneNumber(filename string) []byte {

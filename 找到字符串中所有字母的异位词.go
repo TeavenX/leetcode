@@ -3,9 +3,9 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(findAnagrams("cbaebabacd", "abc"))
-	fmt.Println(findAnagrams("abab", "ab"))
-	fmt.Println(findAnagrams("baa", "aa"))
+	fmt.Println(findAnagrams20220707("cbaebabacd", "abc"))
+	//fmt.Println(findAnagrams("abab", "ab"))
+	//fmt.Println(findAnagrams("baa", "aa"))
 }
 
 func findAnagramsTIMEOUT(s string, p string) []int {
@@ -64,6 +64,44 @@ func findAnagrams(s string, p string) []int {
 			left++
 			if _, exists := need[strL]; exists {
 				if window[strL] == need[strL] {
+					valid--
+				}
+				window[strL]--
+			}
+		}
+	}
+	return result
+}
+
+func findAnagrams20220707(s string, p string) []int {
+	size := len(p)
+	if len(s) < size {
+		return []int{}
+	}
+	cache, window := make(map[byte]int), make(map[byte]int)
+	for i := 0; i < size; i++ {
+		cache[p[i]]++
+	}
+	result := make([]int, 0)
+	left, right, valid := 0, 0, 0
+	need := len(cache)
+	for right < len(s) {
+		strR := s[right]
+		right++
+		if _, exists := cache[strR]; exists {
+			window[strR]++
+			if window[strR] == cache[strR] {
+				valid++
+			}
+		}
+		if right-left == size {
+			if valid == need {
+				result = append(result, left)
+			}
+			strL := s[left]
+			left++
+			if _, exists := cache[strL]; exists {
+				if window[strL] == cache[strL] {
 					valid--
 				}
 				window[strL]--
