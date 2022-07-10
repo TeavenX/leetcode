@@ -44,3 +44,16 @@ func twoSum20220613(nums []int, target int) []int {
 	}
 	return []int{}
 }
+
+func twoSum(nums []int, target int) []int {
+	cache := make(map[int]int)
+	for idx, num := range nums {
+		if i, ok := cache[target-num]; ok {
+			if i != idx {
+				return []int{i, idx}
+			}
+		}
+		cache[num] = idx
+	}
+	return []int{}
+}

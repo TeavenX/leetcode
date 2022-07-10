@@ -90,3 +90,48 @@ func backspaceCompare(s, t string) bool {
 	}
 	return true
 }
+
+func backspaceCompare(s string, t string) bool {
+	ps, pt := len(s)-1, len(t)-1
+	for ps >= 0 || pt >= 0 {
+		psb, ptb := 0, 0
+		for ps >= 0 && s[ps] == '#' {
+			psb++
+			ps--
+		}
+		for ps >= 0 && psb > 0 {
+			ps--
+			psb--
+			for ps >= 0 && s[ps] == '#' {
+				psb++
+				ps--
+			}
+		}
+		for pt >= 0 && t[pt] == '#' {
+			ptb++
+			pt--
+		}
+		for pt >= 0 && ptb > 0 {
+			ptb--
+			pt--
+			for pt >= 0 && t[pt] == '#' {
+				ptb++
+				pt--
+			}
+		}
+		if ps >= 0 && pt >= 0 {
+			if s[ps] != t[pt] {
+				return false
+			} else {
+				ps--
+				pt--
+			}
+		} else if ps >= 0 || pt >= 0 {
+			return false
+		}
+	}
+	if (ps < 0 && pt < 0) || s[:ps] == t[:pt] {
+		return true
+	}
+	return false
+}

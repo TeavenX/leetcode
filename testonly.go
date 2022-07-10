@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"regexp"
+	"unsafe"
 )
 
 const (
@@ -167,7 +168,36 @@ func main() {
 	//fmt.Println(IDPNUM)
 	//fmt.Println(IDPNUM2)
 
-	fmt.Printf("%T, %+v", _EOF, _EOF)
+	//fmt.Printf("%T, %+v\n", _EOF, _EOF)
+	//a := [...]int{0: 1, 10: 2}
+	//b := []int{0: 1, 10: 20}
+	//fmt.Println(a)
+	//fmt.Printf("%T, %+v\n", a, a)
+	//fmt.Println(b)
+	//fmt.Printf("%T, %+v\n", b, b)
+	//
+	//c := b[2:6]
+	//d := b[:]
+	//c[0] = 10
+	//d[6] = 20
+	//fmt.Println(b)
+	//fmt.Println(c)
+	//fmt.Println(d)
+	//
+	//var arr []int64
+	//arr = append(arr, 1, 2, 3, 4, 5)
+	//fmt.Println(len(arr), cap(arr))
+
+	//test := make[map[int]int] // invalid operation: cannot index make (built-in)
+	//test1 := make             // make (built-in) must be called
+	//a := test(make(map[int]int), 10)
+	//b := test1(make(map[int]int), 10)
+	//fmt.Printf("%+v, %#v\n", a, a)
+	//fmt.Printf("%+v, %#v\n", b, b)
+
+	a := uintptr(1)
+	b := unsafe.Pointer(a)
+	fmt.Println(a, b)
 }
 
 func FindPhoneNumber(filename string) []byte {
