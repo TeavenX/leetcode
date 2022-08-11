@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"reflect"
 	"regexp"
-	"unsafe"
 )
 
 const (
@@ -195,9 +194,15 @@ func main() {
 	//fmt.Printf("%+v, %#v\n", a, a)
 	//fmt.Printf("%+v, %#v\n", b, b)
 
-	a := uintptr(1)
-	b := unsafe.Pointer(a)
-	fmt.Println(a, b)
+	//a := uintptr(1)
+	//b := unsafe.Pointer(a)
+	//fmt.Println(a, b)
+
+	//fmt.Println('a', 'z')
+	//fmt.Println('0', '9')
+
+	a := []int{1, 2, 3, 4, 5, 6, 7}
+	fmt.Println(a[1:4:7])
 }
 
 func FindPhoneNumber(filename string) []byte {
