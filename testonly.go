@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"reflect"
 	"regexp"
+	"sync"
 )
 
 const (
@@ -203,6 +204,24 @@ func main() {
 
 	a := []int{1, 2, 3, 4, 5, 6, 7}
 	fmt.Println(a[1:4:7])
+
+	mt := mtest{}
+	mt.mu.Lock()
+}
+
+type mtest struct {
+	mu sync.Mutex
+}
+
+type aint = int // alias
+type bint int   // new type
+
+//func(a aint) test() {
+// 无法在非局部类型 'builtin.int' 上定义新方法
+//}
+
+func (b bint) test() {
+
 }
 
 func FindPhoneNumber(filename string) []byte {
