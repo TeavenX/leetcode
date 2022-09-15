@@ -6,6 +6,7 @@ import (
 	"reflect"
 	"regexp"
 	"sync"
+	"time"
 )
 
 const (
@@ -202,11 +203,23 @@ func main() {
 	//fmt.Println('a', 'z')
 	//fmt.Println('0', '9')
 
-	a := []int{1, 2, 3, 4, 5, 6, 7}
-	fmt.Println(a[1:4:7])
+	//a := []int{1, 2, 3, 4, 5, 6, 7}
+	//fmt.Println(a[1:4:7])
+	//
+	//mt := mtest{}
+	//mt.mu.Lock()
 
-	mt := mtest{}
-	mt.mu.Lock()
+	//a := make(chan struct{})
+	//go testC(a)
+	//time.Sleep(time.Second * 6)
+	//a <- struct{}{}
+
+	go goroutinePanic()
+	time.Sleep(time.Second)
+}
+
+func goroutinePanic() {
+	panic("test")
 }
 
 type mtest struct {
@@ -239,4 +252,16 @@ func bind(configMap map[string]string, result interface{}) error {
 		fmt.Println(tag)
 	}
 	return nil
+}
+
+func testC(a chan struct{}) {
+	select {
+	case <-a:
+		fmt.Println("a done")
+	case <-time.Tick(time.Second * 7):
+		fmt.Println("time ticker")
+		//default:
+		//    fmt.Println("running in default")
+		//    time.Sleep(time.Second * 10)
+	}
 }
