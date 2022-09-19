@@ -6,14 +6,14 @@ func main() {
 
 }
 
-func rectangleArea(rectangles [][]int) int {
-	n := len(rectangles)
-	hBound := make([]int, 0, 2*n)
+func rectangleArea(rectangles [][]int) (ans int) {
+	n := len(rectangles) * 2
+	hBound := make([]int, 0, n)
 	for _, r := range rectangles {
 		hBound = append(hBound, r[1], r[3])
 	}
+	// 排序，方便下面去重
 	sort.Ints(hBound)
-	// 去重
 	m := 0
 	for _, b := range hBound[1:] {
 		if hBound[m] != b {
@@ -23,28 +23,23 @@ func rectangleArea(rectangles [][]int) int {
 	}
 	hBound = hBound[:m+1]
 
-	type tuple struct {
-		x, i, d int
-	}
-	sweep := make([]tuple, 0, 2*n)
+	type tuple struct{ x, i, d int }
+	sweep := make([]tuple, 0, n)
 	for i, r := range rectangles {
 		sweep = append(sweep, tuple{r[0], i, 1}, tuple{r[2], i, -1})
 	}
-	sort.Slice(sweep, func(i, j int) bool {
-		return sweep[i].x < sweep[j].x
-	})
-
-	result := 0
+	sort.Slice(sweep, func(i, j int) bool { return sweep[i].x < sweep[j].x })
 
 	seg := make([]int, m)
 	for i := 0; i < n; i++ {
 		j := i
-		for j+1 < n && sweep[j].x == sweep[i].x {
+		for j+1 < n && sweep[j+1].x == sweep[i].x {
 			j++
 		}
 		if j+1 == n {
 			break
 		}
+		// 一次性地处理掉一批横坐标相同的左右边界
 		for k := i; k <= j; k++ {
 			idx, diff := sweep[k].i, sweep[k].d
 			left, right := rectangles[idx][1], rectangles[idx][3]
@@ -60,8 +55,8 @@ func rectangleArea(rectangles [][]int) int {
 				cover += hBound[k+1] - hBound[k]
 			}
 		}
-		result += cover * (sweep[j+1].x - sweep[j].x)
+		ans += cover * (sweep[j+1].x - sweep[j].x)
 		i = j
 	}
-	return result % (1e9 + 7)
+	return ans % (1e9 + 7)
 }
