@@ -73,3 +73,28 @@ func areAlmostEqualV3(s1 string, s2 string) bool {
 	}
 	return true
 }
+
+func areAlmostEqual(s1 string, s2 string) bool {
+	if s1 == s2 {
+		return true
+	}
+	i, j := -1, -1
+	for idx := 0; idx < len(s1); idx++ {
+		if s2[idx] != s1[idx] {
+			if i == -1 {
+				i = idx
+			} else if j == -1 {
+				j = idx
+			} else {
+				return false
+			}
+		}
+	}
+	if j == -1 {
+		return false
+	}
+	if s2[i] != s1[j] || s1[i] != s2[j] {
+		return false
+	}
+	return true
+}
