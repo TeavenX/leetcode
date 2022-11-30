@@ -27,3 +27,23 @@ func abs(a int) int {
 	}
 	return a
 }
+
+func nearestValidPoint(x int, y int, points [][]int) int {
+	dist := math.MaxInt
+	idx := -1
+	for i, point := range points {
+		var d int
+		if point[0] == x {
+			d = abs(y - point[1])
+		} else if point[1] == y {
+			d = abs(x - point[0])
+		} else {
+			continue
+		}
+		if d < dist {
+			dist = d
+			idx = i
+		}
+	}
+	return idx
+}
