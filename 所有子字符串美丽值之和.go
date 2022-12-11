@@ -10,6 +10,7 @@ func main() {
 }
 
 func beautySum(s string) int {
+	// 参考V3，其实不需要先把子序列求出来，直接计算就好了
 	tmp := make([]string, 0)
 	for right := range s {
 		left := 0
