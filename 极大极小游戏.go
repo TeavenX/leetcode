@@ -1,5 +1,7 @@
 package main
 
+import "strings"
+
 func main() {
 
 }
@@ -27,6 +29,7 @@ func max(a, b int) int {
 }
 
 func min(a, b int) int {
+	strings.HasSuffix()
 	if a < b {
 		return a
 	}
