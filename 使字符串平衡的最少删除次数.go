@@ -11,11 +11,12 @@ func minimumDeletions(s string) int {
 	ans := del
 	for _, b := range s {
 		if b == 'a' {
+			// 前面的a不用删，所以这里只需要记录后面有多少a就行
 			del--
 		} else {
+			// 因为前面不能有b，所以碰到b都要记录删除，直到把所有b都删掉
 			del++
 		}
-		// del += int(b-'a') * 2 - 1
 		if del < ans {
 			ans = del
 		}
