@@ -8,6 +8,8 @@ func main() {
 
 func maxProfit(k int, prices []int) int {
 	n := len(prices)
+	// 因为交易日一共只有len(prices)天，买卖股票不会在同一天，因此如果k >= len(prices)/2，可以认为k是无穷大
+	// 此时可以简化下面的遍历流程，不需要考虑k
 	dp := make([][][2]int, n+1)
 	for i := range dp {
 		dp[i] = make([][2]int, k+1)
