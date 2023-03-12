@@ -8,7 +8,7 @@ func maxProfit(prices []int) int {
 	n := len(prices)
 	dp := make([][2]int, n)
 	// dp[i][k][0], dp[i][k][1]
-	// i表示第i天，k表示交易上限
+	// i表示第i天，k表示交易上限，如果没有上限，可以认为k是无穷大，此时k ~= k-1
 	// 0 没有买，1买了
 	// dp[i][0] = max(dp[i][0], dp[i][1] + prices[i]) // 卖股票卖了prices[i]
 	// dp[i][1] = max(dp[i][1], dp[i][0] - prices[i]) // 买股票花了prices[i]
