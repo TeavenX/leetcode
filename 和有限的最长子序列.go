@@ -32,9 +32,8 @@ func answerQueries(nums []int, queries []int) []int {
 	for i := 1; i < n; i++ {
 		arr[i] = arr[i-1] + nums[i]
 	}
-	ans := make([]int, len(queries))
 	for i, s := range queries {
-		ans[i] = sort.SearchInts(arr, s+1)
+		queries[i] = sort.SearchInts(arr, s+1)
 	}
-	return ans
+	return queries
 }
