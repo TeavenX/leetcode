@@ -28,6 +28,19 @@ func maxSumAfterPartitioning(arr []int, k int) int {
 	return dfs(len(arr) - 1)
 }
 
+func maxSumAfterPartitioningV2(arr []int, k int) int {
+	n := len(arr)
+	dp := make([]int, n+1)
+	for i := 0; i < n; i++ {
+		mx := 0
+		for j := i; j >= 0 && j > i-k; j-- {
+			mx = max(mx, arr[j])
+			dp[i+1] = max(dp[i+1], dp[j]+(i-j+1)*mx)
+		}
+	}
+	return dp[n]
+}
+
 func max(a, b int) int {
 	if a > b {
 		return a
