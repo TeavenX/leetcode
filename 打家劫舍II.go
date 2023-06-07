@@ -32,3 +32,28 @@ func max(a, b int) int {
 	}
 	return b
 }
+
+func rob(nums []int) int {
+	n := len(nums)
+	if n == 1 {
+		return nums[0]
+	}
+	return max(do(nums[1:]), do(nums[:n-1]))
+}
+
+func do(nums []int) int {
+	res, pp, p := 0, 0, nums[0]
+	for i := 1; i < len(nums); i++ {
+		res = max(p, pp+nums[i])
+		pp = p
+		p = res
+	}
+	return p
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}

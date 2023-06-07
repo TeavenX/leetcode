@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"sort"
 	"strings"
@@ -40,4 +41,50 @@ func replaceWords(dictionary []string, sentence string) string {
 		}
 	}
 	return strings.Join(words, " ")
+}
+
+type Trie struct {
+	Next  [26]*Trie
+	isEnd bool
+}
+
+func (t *Trie) insert(s string) {
+	node := t
+	for _, b := range s {
+		if node.Next[b-'a'] == nil {
+			node.Next[b-'a'] = &Trie{}
+		}
+		node = node.Next[b-'a']
+	}
+	node.isEnd = true
+}
+
+func (t *Trie) search(s string) int {
+	node := t
+	for i, b := range s {
+		if node.isEnd {
+			return i
+		}
+		if node.Next[b-'a'] == nil {
+			return len(s)
+		}
+		node = node.Next[b-'a']
+	}
+	return len(s)
+}
+
+func replaceWords(dictionary []string, sentence string) string {
+	trie := Trie{}
+	ss := strings.Split(sentence, " ")
+	for _, dict := range dictionary {
+		trie.insert(dict)
+	}
+	ans := bytes.Buffer{}
+	for i, s := range ss {
+		if i > 0 {
+			ans.WriteByte(' ')
+		}
+		ans.WriteString(s[:trie.search(s)])
+	}
+	return ans.String()
 }

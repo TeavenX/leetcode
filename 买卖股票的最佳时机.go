@@ -79,3 +79,27 @@ func maxProfitSingleStack(prices []int) int {
 	}
 	return max(maxVal, stack.stack[len(stack.stack)-1]-stack.min)
 }
+
+func maxProfit(prices []int) int {
+	buy := prices[0]
+	ans := 0
+	for _, p := range prices {
+		ans = max(ans, p-buy)
+		buy = min(buy, p)
+	}
+	return ans
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}

@@ -20,3 +20,15 @@ func subarraySum(nums []int, k int) int {
 	}
 	return result
 }
+
+func subarraySum(nums []int, k int) int {
+	cache := map[int]int{0: 1}
+	ans := 0
+	sum := 0
+	for _, num := range nums {
+		sum += num
+		ans += cache[sum-k]
+		cache[sum]++
+	}
+	return ans
+}
