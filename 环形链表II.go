@@ -81,3 +81,34 @@ func detectCycleV2(head *ListNode) *ListNode {
 	}
 	return slow
 }
+
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func detectCycle(head *ListNode) *ListNode {
+	slow, fast := head, head
+	for fast != nil {
+		fast = fast.Next
+		if fast == nil {
+			return nil
+		}
+		fast = fast.Next
+		slow = slow.Next
+		if fast == slow {
+			break
+		}
+	}
+	if fast == nil {
+		return nil
+	}
+	fast = head
+	for fast != slow {
+		fast = fast.Next
+		slow = slow.Next
+	}
+	return fast
+}
