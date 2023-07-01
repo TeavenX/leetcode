@@ -45,3 +45,54 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) (head *ListNode) {
 	}
 	return head
 }
+
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
+	carry := 0
+	ans := &ListNode{}
+	var pre *ListNode = nil
+	cur := ans
+	for l1 != nil && l2 != nil {
+		v := l1.Val + l2.Val + carry
+		cur.Val = v % 10
+		carry = v / 10
+		l1 = l1.Next
+		l2 = l2.Next
+		cur.Next = &ListNode{}
+		pre = cur
+		cur = cur.Next
+	}
+	for l1 != nil {
+		v := l1.Val + carry
+		cur.Val = v % 10
+		carry = v / 10
+		l1 = l1.Next
+		cur.Next = &ListNode{}
+		pre = cur
+		cur = cur.Next
+	}
+	for l2 != nil {
+		v := l2.Val + carry
+		cur.Val = v % 10
+		carry = v / 10
+		l2 = l2.Next
+		cur.Next = &ListNode{}
+		pre = cur
+		cur = cur.Next
+	}
+	for carry > 0 {
+		cur.Val = carry % 10
+		carry /= 10
+		cur.Next = &ListNode{}
+		pre = cur
+		cur = cur.Next
+	}
+	pre.Next = nil
+	return ans
+}
