@@ -92,3 +92,39 @@ func fourSum20220504(nums []int, target int) [][]int {
 	}
 	return result
 }
+
+func fourSum(nums []int, target int) [][]int {
+	sort.Ints(nums)
+	n := len(nums)
+	ans := make([][]int, 0)
+	for a := 0; a < n-3; a++ {
+		if a > 0 && nums[a] == nums[a-1] {
+			continue
+		}
+		for b := a + 1; b < n-2; b++ {
+			if b > a+1 && nums[b] == nums[b-1] {
+				continue
+			}
+			c, d := b+1, n-1
+			for c < d {
+				sum := nums[a] + nums[b] + nums[c] + nums[d]
+				if sum == target {
+					ans = append(ans, []int{nums[a], nums[b], nums[c], nums[d]})
+					c++
+					d--
+					for c < d && nums[c] == nums[c-1] {
+						c++
+					}
+					for c < d && nums[d] == nums[d+1] {
+						d--
+					}
+				} else if sum > target {
+					d--
+				} else {
+					c++
+				}
+			}
+		}
+	}
+	return ans
+}
