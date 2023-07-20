@@ -37,3 +37,32 @@ func min(a, b int) int {
 	}
 	return b
 }
+
+func maxSubarraySumCircular(nums []int) int {
+	total, curMax, curMin, maxSum, minSum := 0, 0, 0, nums[0], 0
+	for _, num := range nums {
+		total += num
+		curMax = max(curMax, 0) + num
+		maxSum = max(maxSum, curMax)
+		curMin = min(curMin, 0) + num
+		minSum = min(minSum, curMin)
+	}
+	if total == minSum {
+		return maxSum
+	}
+	return max(maxSum, total-minSum)
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
