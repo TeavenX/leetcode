@@ -123,7 +123,7 @@ func (s *NumberState) Transfer(b rune) string {
 type EndState struct{}
 
 func (s *EndState) Enter(b rune)           {}
-func (s *EndState) Transfer(b rune) string { return "end" }
+func (s *EndState) Transfer(b rune) string { return END_STATE }
 
 func myAtoiFSM(s string) int {
 	mp := map[string]State{
@@ -141,7 +141,7 @@ func myAtoiFSM(s string) int {
 		state = mp[next]
 		state.Enter(b)
 	}
-	ans := interface{}(mp[SIGN_STATE]).(*SignState).sign * interface{}(mp[NUMBER_STATE]).(*NumberState).num
+	ans := mp[SIGN_STATE].(*SignState).sign * mp[NUMBER_STATE].(*NumberState).num
 	if ans > math.MaxInt32 {
 		ans = math.MaxInt32
 	} else if ans < math.MinInt32 {
