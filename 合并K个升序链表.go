@@ -1,5 +1,7 @@
 package main
 
+import "container/heap"
+
 func main() {
 
 }
@@ -76,4 +78,59 @@ func mergeKListsV2(lists []*ListNode) *ListNode {
 		lists = lists[:n]
 	}
 	return lists[0]
+}
+
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+
+type HP []*ListNode
+
+func (h HP) Len() int {
+	return len(h)
+}
+
+func (h HP) Less(i, j int) bool {
+	return h[i].Val < h[j].Val
+}
+
+func (h HP) Swap(i, j int) {
+	h[i], h[j] = h[j], h[i]
+}
+
+func (h *HP) Push(v interface{}) {
+	*h = append(*h, v.(*ListNode))
+}
+
+func (h *HP) Pop() interface{} {
+	t := *h
+	v := t[len(t)-1]
+	*h = t[:len(t)-1]
+	return v
+}
+
+func mergeKLists(lists []*ListNode) *ListNode {
+	hp := HP(make([]*ListNode, 0, len(lists)))
+	for _, node := range lists {
+		if node == nil {
+			continue
+		}
+		heap.Push(&hp, node)
+	}
+	head := &ListNode{}
+	cur := head
+	for hp.Len() > 0 {
+		node := heap.Pop(&hp).(*ListNode)
+		cur.Next = &ListNode{Val: node.Val}
+		cur = cur.Next
+		node = node.Next
+		if node != nil {
+			heap.Push(&hp, node)
+		}
+	}
+	return head.Next
 }
