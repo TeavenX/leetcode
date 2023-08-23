@@ -111,3 +111,76 @@ func threeSum20220504(nums []int) [][]int {
 	}
 	return result
 }
+
+func threeSum(nums []int) [][]int {
+	n := len(nums)
+	ans := make([][]int, 0)
+	sort.Ints(nums)
+	search := func(i, target int) int {
+		left, right := i, n-1
+		for left < right {
+			mid := (left + right) >> 1
+			if nums[mid] == target {
+				return mid
+			} else if nums[mid] > target {
+				right = mid - 1
+			} else {
+				left = mid + 1
+			}
+		}
+		return left
+	}
+	for i, x := range nums {
+		if x > 0 {
+			break
+		}
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		target := -x
+		for j := i + 1; j < n-1; j++ {
+			if j > i+1 && nums[j] == nums[j-1] {
+				continue
+			}
+			k := search(j+1, target-nums[j])
+			if nums[k] == target-nums[j] {
+				ans = append(ans, []int{x, nums[j], nums[k]})
+			}
+		}
+	}
+	return ans
+}
+
+func threeSum(nums []int) [][]int {
+	n := len(nums)
+	sort.Ints(nums)
+	ans := make([][]int, 0)
+	for i, a := range nums {
+		if a > 0 {
+			break
+		}
+		if i > 0 && a == nums[i-1] {
+			continue
+		}
+		left, right := i+1, n-1
+		for left < right {
+			s := a + nums[left] + nums[right]
+			if s == 0 {
+				ans = append(ans, []int{a, nums[left], nums[right]})
+				for left < right && nums[left] == nums[left+1] {
+					left++
+				}
+				for left < right && nums[right] == nums[right-1] {
+					right--
+				}
+				left++
+				right--
+			} else if s > 0 {
+				right--
+			} else {
+				left++
+			}
+		}
+	}
+	return ans
+}
